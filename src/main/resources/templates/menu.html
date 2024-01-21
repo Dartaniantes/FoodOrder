@@ -1,16 +1,42 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Menu</title>
+    <link rel="stylesheet" href="/css/styles.css">
+
 </head>
 
 <body>
-<div class="menu">
+<div class="content">
+    <a th:href="@{/}"><h1>Menu</h1></a>
+    <a th:href="@{/orders}"><h1>Orders</h1></a>
+    <form th:action="@{/order}"><button type="submit" th:disabled="false">Basket</button></form>
+    <a th:href="@{/add}">Create dish</a>
     <div class="elements" >
-        <p th:each="element:${menu}">
-            <span><label th:text="${element.name}"></label> <label th:text="${element.price}"></label></span>
-        </p>
+        <table >
+            <tr>
+                <th>Title</th>
+                <th>price</th>
+                <th>actions</th>
+
+            </tr>
+
+            <tr th:each="element:${menu}" >
+                <td th:text="${element.name}">$</td>
+                <td th:text="${element.price}">$</td>
+                <td><a th:href="@{/element/{id}/details(id=${element.id})}">Details</a></td>
+                <td><form th:method="post" th:action="@{/element/{id}/remove(id=${element.id})}">
+                        <input type="submit" value="Remove dish"/>
+                </form>
+                </td>
+                <td><form th:method="post" th:action="@{/order/add/{id}(id=${element.id})}">
+                        <button type="submit" th:disabled="false">To basket</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+
     </div>
 </div>
 </body>

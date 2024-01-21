@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/styles.css"/>
+</head>
+<body>
+    <div class="content">
+        <a th:href="@{/}"><h3>Menu</h3></a>
+        <h1>Basket</h1>
+        <table>
+            <tr>
+                <th>Order ID</th>
+                <th>dishes</th>
+                <th>total</th>
+                <th>served</th>
+            </tr>
+            <tr th:each="order: ${orders}">
+                <td th:text="${order.id}"></td>
+                <td>
+                    <ol th:each="dish : ${order.dishes}">
+                        <li th:text="${dish.name} + ' : ' + ${dish.price}"></li>
+                    </ol>
+                </td>
+                <td th:text="${order.countTotal()}"></td>
+                <td th:text="${order.served}"></td>
+                <td><form th:method="post" th:action="@{orders/serve/{id}(id=${order.id})}">
+                        <input type="submit" value="Serve"/>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

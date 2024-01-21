@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create menu element</title>
+    <link rel="stylesheet" href="/css/styles.css"/>
+</head>
+<body>
+    <div class="content">
+
+        <h1>Creating menu element:</h1>
+
+        <form th:method="POST" th:action="@{/create}" th:object="${menuElement}">
+
+            <table>
+                <tr>
+                    <td>Dish title:</td>
+                    <td><input type="text" name="name"></td>
+                </tr>
+                <tr>
+                    <td>Price:</td>
+                    <td><input type="number" name="price"></td>
+                </tr>
+                <tr>
+                    <td>Description:</td>
+                    <td><textarea name="description"></textarea></td>
+                </tr>
+            </table>
+            <input type="submit" value="Create"/>
+        </form>
+    </div>
+</body>
+</html>
