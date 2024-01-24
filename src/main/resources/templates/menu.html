@@ -10,33 +10,42 @@
 <body>
 <div class="content">
     <a th:href="@{/}"><h1>Menu</h1></a>
-    <a th:href="@{/orders}"><h1>Orders</h1></a>
-    <form th:action="@{/order}"><button type="submit" th:disabled="false">Basket</button></form>
-    <a th:href="@{/add}">Create dish</a>
+    <h1 th:if="${role}=='user'">Welcome to our food order service!</h1>
+    <div th:switch="${role}">
+        <a th:href="@{/order}" th:case="user">Basket</a>
+
+        <div th:case="admin">
+            <a th:href="@{/orders}"><h1>Orders</h1></a>
+            <a th:href="@{/add}">Create dish</a>
+        </div>
+    </div>
+
     <div class="elements" >
         <table >
             <tr>
                 <th>Title</th>
                 <th>price</th>
-                <th>actions</th>
-
             </tr>
 
-            <tr th:each="element:${menu}" >
+            <tr th:each="element:${menu}" th:switch="${role}">
                 <td th:text="${element.name}">$</td>
                 <td th:text="${element.price}">$</td>
                 <td><a th:href="@{/element/{id}/details(id=${element.id})}">Details</a></td>
-                <td><form th:method="post" th:action="@{/element/{id}/remove(id=${element.id})}">
+                <td th:case="admin"><form th:method="post" th:action="@{/element/{id}/remove(id=${element.id})}">
                         <input type="submit" value="Remove dish"/>
-                </form>
+                    </form>
                 </td>
-                <td><form th:method="post" th:action="@{/order/add/{id}(id=${element.id})}">
+                <td th:case="user"><form th:method="post" th:action="@{/order/add/{id}(id=${element.id})}">
                         <button type="submit" th:disabled="false">To basket</button>
                     </form>
                 </td>
             </tr>
         </table>
-
+        <br/>
+        <label>Current role: </label><label th:text="${role}"></label>
+        <form th:method="post" th:action="switchRole">
+            <input type="submit" value="Switch role">
+        </form>
     </div>
 </div>
 </body>

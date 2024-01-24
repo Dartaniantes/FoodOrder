@@ -15,12 +15,12 @@ public class OrderService {
     private List<Order> ordersRepository;
     private int counter;
 
-    public OrderService(){
+    public OrderService() {
         ordersRepository = new ArrayList<>();
         counter = 0;
     }
 
-    public void put(Order o){
+    public void put(Order o) {
         o.setId(counter);
         ordersRepository.add(o);
         counter++;
@@ -31,10 +31,7 @@ public class OrderService {
     }
 
 
-    public Order getOrder(int id){
+    public Order getOrder(int id) {
         return ordersRepository.stream().filter(o -> o.getId() == id).findFirst().get();
     }
-
-
-
 }

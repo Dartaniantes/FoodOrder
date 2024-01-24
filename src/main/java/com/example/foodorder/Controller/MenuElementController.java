@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value= {"/", "/menu"})
 public class MenuElementController {
     private final Menu menuElementService;
+    private String role = "user";
 
     @GetMapping("/")
     public String getElements(Model model){
         model.addAttribute("menu", menuElementService.getMenuElementsRepo());
+        model.addAttribute("role", role);
         return "menu";
     }
 
@@ -43,4 +45,14 @@ public class MenuElementController {
         menuElementService.remove(id);
         return "redirect:/";
     }
+
+    @PostMapping("/switchRole")
+    public String switchRole(){
+        if(role.equals("user"))
+            role = "admin";
+        else
+            role = "user";
+        return "redirect:/";
+    }
+
 }

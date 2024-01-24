@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @Component
 @Data
 public class Order {
